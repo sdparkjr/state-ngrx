@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from 'src/app/shared/models/todo.model';
+import { TodosService } from '../../../shared/services/todos.service';
 
 @Component({
   selector: 'app-last-todos',
@@ -8,32 +9,28 @@ import { Todo } from 'src/app/shared/models/todo.model';
 })
 export class LastTodosComponent implements OnInit {
 
-  //list: Todo[] = [];
+  list: Todo[] = [];
 
-  list = [{
-    id: 0,
-    createdAt: new Date(),
-    title: 'a',
-    done: true,
-  },  {
-    id: 1,
-    createdAt: new Date(),
-    title: 'b',
-    done: false,
-  }];
-
-  constructor() {
+  constructor(private todosService: TodosService) {
   }
 
   ngOnInit() {
-    // this.listService.getList(0);
 
+    this.todosService.getList(0)
+      .subscribe(list => { this.list = list });
+
+    // this.listService.getList(0);
     // this.listService.list$
     //   .subscribe(list => this.list = list.slice(0, 10));
   }
 
   markAsDone(id: number) {
     //this.listService.toggleDone(id);
+  }
+
+  //*recebendo do outro compoeneten 
+  handleCreated(todo: Todo) {
+    this.list = [todo, ...this.list];
   }
 
 }

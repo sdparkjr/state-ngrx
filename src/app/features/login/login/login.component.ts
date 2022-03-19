@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/shared/services/login.service';
+import { UserContextService } from 'src/app/shared/services/user-context.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
     private loginService: LoginService,
+    private userContext: UserContextService
   ) {
   }
 
@@ -24,7 +26,7 @@ export class LoginComponent implements OnInit {
     console.log(this.form.value);
     this.loginService.login(this.form.value.name, this.form.value.email)
       .subscribe(user => {
-        //     this.userContext.user = user;
+        this.userContext.user = user;
         this.router.navigate(['d']);
       });
   }
