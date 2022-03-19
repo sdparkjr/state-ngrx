@@ -10,7 +10,7 @@ export class LoginService {
 
   login(name: string, email: string): Observable<User> {
     return of({ name, email })
-      .pipe(delay(2000));
+      .pipe(delay(1000));
   }
   
 }
