@@ -6,11 +6,12 @@ import { ListComponent } from './list/list.component';
 import { LastTodosComponent } from './last-todos/last-todos.component';
 import { CreateTodoComponent } from './create-todo/create-todo.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ListService } from './services/list.service';
 
 
 @NgModule({
   imports: [
-    CommonModule,    
+    CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild([
       {
@@ -28,6 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ListComponent,
     LastTodosComponent,
     CreateTodoComponent
-  ]
+  ],
+  providers: [ListService]
 })
 export class DashboardModule { }

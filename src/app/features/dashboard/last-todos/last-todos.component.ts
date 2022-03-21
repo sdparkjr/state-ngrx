@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from 'src/app/shared/models/todo.model';
 import { TodosService } from '../../../shared/services/todos.service';
+import { ListService } from '../services/list.service';
 
 @Component({
   selector: 'app-last-todos',
@@ -11,13 +12,28 @@ export class LastTodosComponent implements OnInit {
 
   list: Todo[] = [];
 
-  constructor(private todosService: TodosService) {
+  constructor(private todosService: TodosService,
+    private listService: ListService) {
   }
 
   ngOnInit() {
 
-    this.todosService.getList(0)
-      .subscribe(list => { this.list = list });
+    // this.todosService.getList(0)
+    //   .subscribe(list => {
+    //     this.list = list
+    //     this.listService.list = list;
+    //   });
+
+    /*Economizar um reques na troca de pagina */
+    if (this.listService.list.length === 0) {
+      this.todosService.getList(0)
+        .subscribe(list => {
+          this.list = list
+          this.listService.list = list;
+        });
+    } else {
+      this.list = this.listService.list.slice(0, 10);
+    }
 
     // this.listService.getList(0);
     // this.listService.list$
