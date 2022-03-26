@@ -14,7 +14,7 @@ export class TodosService {
   getList(page: number): Observable<Todo[]> {
     const start = page * 10;
     return of(getEntities().slice(start, start + 10))
-      .pipe(delay(2000));
+      .pipe(delay(1000));
   }
 
   toggleDone(id: number): Observable<Todo> {

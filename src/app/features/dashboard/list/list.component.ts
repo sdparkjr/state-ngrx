@@ -10,7 +10,7 @@ import { ListService } from '../services/list.service';
 })
 export class ListComponent implements OnInit {
 
-  list: Todo[] = [];  
+  list: Todo[] = [];
 
   constructor(private todosService: TodosService,
     private listService: ListService
@@ -20,19 +20,30 @@ export class ListComponent implements OnInit {
 
     // this.todosService.getList(0)
     //   .subscribe(list => this.list = list);
-    this.list = this.listService.list;
+    this.listService.list$.subscribe(list => {
+      this.list = list;
+    });
 
   }
 
 
   loadMore() {
+    // this.listService.page++;
+    // this.todosService.getList(this.listService.page)
+    //   .subscribe(list => {
+    //     this.list = [...this.list, ...list]
+    //     this.listService.list = this.list;
+
+    //   });
+
     this.listService.page++;
     this.todosService.getList(this.listService.page)
       .subscribe(list => {
-        this.list = [...this.list, ...list]
-        this.listService.list = this.list;
+        this.listService.list = [...this.list, ...list];
 
       });
+
+
   }
 
   onDelete(id: number) {

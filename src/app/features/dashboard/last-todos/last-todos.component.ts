@@ -18,6 +18,26 @@ export class LastTodosComponent implements OnInit {
 
   ngOnInit() {
 
+
+    this.listService.getList(0); //SETANDO A LISTA
+    this.listService.list$
+      .subscribe(list => this.list = list.slice(0, 10));
+
+    // this.listService.list$
+    //   .subscribe(list => {
+
+    //     if (!list || !list.length) {
+
+    //       this.todosService.getList(0)
+    //         .subscribe(list => {
+    //           this.listService.list = list;
+    //         });
+    //     } else {
+    //       this.list = list;
+    //     }
+
+    //   });
+
     // this.todosService.getList(0)
     //   .subscribe(list => {
     //     this.list = list
@@ -25,15 +45,15 @@ export class LastTodosComponent implements OnInit {
     //   });
 
     /*Economizar um reques na troca de pagina */
-    if (this.listService.list.length === 0) {
-      this.todosService.getList(0)
-        .subscribe(list => {
-          this.list = list
-          this.listService.list = list;
-        });
-    } else {
-      this.list = this.listService.list.slice(0, 10);
-    }
+    // if (this.listService.list.length === 0) {
+    //   this.todosService.getList(0)
+    //     .subscribe(list => {
+    //       this.list = list
+    //       this.listService.list = list;
+    //     });
+    // } else {
+    //   this.list = this.listService.list.slice(0, 10);
+    // }
 
     // this.listService.getList(0);
     // this.listService.list$
